@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';

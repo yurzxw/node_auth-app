@@ -86,13 +86,13 @@ async function refresh(req, res, next) {
   const userData = jwtService.validateRefreshToken(refreshToken);
 
   if (!userData) {
-    throw ApiError.Unauthorized();
+    throw ApiError.Unauthorized()
   }
 
   const token = await tokenService.getByToken(refreshToken);
 
   if (!token) {
-    throw ApiError.Unauthorized();
+    throw ApiError.Unauthorized()
   }
 
   const user = await userService.getByEmail(userData.email);
@@ -137,7 +137,7 @@ async function passwordResetRequest(req, res) {
   const {email} = req.body;
 
   if (!email) {
-    throw ApiError.BadRequest("Email is required");
+    throw ApiError.BadRequest("Email is required")
   };
 
   
@@ -152,15 +152,15 @@ async function passwordResetConfirm(req, res) {
   const { newPassword, confirmPassword} = req.body;
 
   if (!newPassword || !confirmPassword) {
-    throw ApiError.BadRequest('All fields are required');
+    throw ApiError.BadRequest('All fields are required')
   };
 
   if (newPassword !== confirmPassword) {
-    throw ApiError.BadRequest('Passwords do not match');
+    throw ApiError.BadRequest('Passwords do not match')
   };
 
   if (newPassword.length < 6) {
-    throw ApiError.BadRequest('Password must be at least 6 characters');
+    throw ApiError.BadRequest('Password must be at least 6 characters')
   };
 
 
@@ -168,10 +168,10 @@ async function passwordResetConfirm(req, res) {
   const user = await User.findOne({where: {resetPasswordToken: resetToken}});
   if (!user) {
     res.sendStatus(404);
-    return;
+    return
   };
 
-  const hashedPass =await bcrypt.hash(newPassword, 10);
+  const hashedPass = await bcrypt.hash(newPassword, 10);
 
   user.password = hashedPass;
   user.resetPasswordToken = null;

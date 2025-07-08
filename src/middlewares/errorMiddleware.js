@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { ApiError } from '../exceptions/ApiError.js';
 
 export function errorMiddleware(error, req, res, next) {
